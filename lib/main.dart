@@ -1,4 +1,9 @@
-import 'package:driver_part/pages/home_page.dart';
+import 'package:driver_part/Themes/light_theme.dart';
+import 'package:driver_part/pages/Primary%20Screens/splash/splash_screen.dart';
+import 'package:driver_part/providers/login_provider.dart';
+import 'package:driver_part/providers/pick_provider.dart';
+import 'package:driver_part/providers/profile_provider.dart';
+import 'package:driver_part/providers/profile_setup_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/navigation_provider.dart';
@@ -13,14 +18,16 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
+        ChangeNotifierProvider(create: (_) => LoginProvider()),
+        ChangeNotifierProvider(create: (_) => PickProvider()),
+        ChangeNotifierProvider(create: (_) => ProfileSetupProvider()),
+        ChangeNotifierProvider(create: (_) => ProfileProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryColor: Color(0xFF4CAF50),
-          scaffoldBackgroundColor: Color(0xFFF5F5F5),
-        ),
-        home: HomePage(),
+        theme: lightMode,
+       // home: DriverHomePage(),
+        home: SplashScreen(),
       ),
     );
   }

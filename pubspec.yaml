@@ -1,6 +1,6 @@
 name: driver_part
 description: "A new Flutter project."
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -17,6 +17,7 @@ dependencies:
   geolocator: ^10.1.0
   flutter_map_location_marker: ^7.0.0
   http: ^1.1.0
+  smooth_page_indicator:
 
 dev_dependencies:
   flutter_test:
@@ -26,4 +27,10 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/
+    - assets/email_components/
+    - assets/icons/
+    - assets/fonts/
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf

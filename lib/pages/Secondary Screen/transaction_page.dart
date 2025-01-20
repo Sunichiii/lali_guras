@@ -1,8 +1,11 @@
+
 import 'package:flutter/material.dart';
-import 'package:driver_part/pages/home_page.dart';
-import 'package:driver_part/pages/pick_page.dart';
-import 'package:driver_part/pages/search_page.dart';
-import 'package:driver_part/pages/profile_page.dart';
+import '../../Themes/app_color.dart';
+import '../Primary Screens/functional/driver_home_page.dart';
+import '../Primary Screens/functional/pick_page.dart';
+import '../Primary Screens/functional/profile_page.dart';
+import '../Primary Screens/functional/search_page.dart';
+
 
 class TransactionPage extends StatelessWidget {
   final double shippingProgress = 0.75; // Example progress for shipping (75%)
@@ -17,7 +20,7 @@ class TransactionPage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -79,7 +82,7 @@ class TransactionPage extends StatelessWidget {
             case 0:
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()),
+                MaterialPageRoute(builder: (context) => DriverHomePage()),
                     (route) => false, // Clear navigation stack
               );
               break;
@@ -109,14 +112,13 @@ class TransactionPage extends StatelessWidget {
               break;
           }
         },
-        selectedItemColor: const Color(0xFF4CAF50),
+        selectedItemColor: AppColors.primary,
         unselectedItemColor: const Color(0xFF757575),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.lock), label: 'Transaction'),
+          BottomNavigationBarItem(icon: Icon(Icons.local_shipping_outlined), label: 'Pick'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          BottomNavigationBarItem(icon: Icon(Icons.fire_truck_sharp), label: 'Pick'),
         ],
       ),
     );
@@ -139,7 +141,7 @@ class TransactionPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF005400),
+                color: AppColors.primary,
               ),
             ),
             SizedBox(height: 12),
@@ -209,7 +211,7 @@ class _AnimatedProgressIndicatorState extends State<AnimatedProgressIndicator>
       child: CircularProgressIndicator(
         value: _animation.value,
         backgroundColor: Colors.grey.shade300,
-        color: Color(0xFF005400),
+        color: AppColors.primary,
         strokeWidth: 10, // Made the circular progress bar fatter
       ),
     );

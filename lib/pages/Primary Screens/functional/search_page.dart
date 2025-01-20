@@ -148,9 +148,6 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Search Page'),
-      ),
       body: Stack(
         children: [
           FlutterMap(
@@ -172,7 +169,6 @@ class _SearchPageState extends State<SearchPage> {
                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                 userAgentPackageName: 'com.example.app',
               ),
-
               if (_currentPosition != null)
                 CurrentLocationLayer(
                   positionStream: LocationMarkerDataStreamFactory()
@@ -218,97 +214,82 @@ class _SearchPageState extends State<SearchPage> {
                 ),
             ],
           ),
+          // iOS-style back button and search bar
           Positioned(
-            top: 16,
+            top: 40,
             left: 16,
             right: 16,
-            child: Column(
+            child: Row(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 8,
-                      ),
-                    ],
-                  ),
-                  child: TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      hintText: 'Search destination...',
-                      prefixIcon: const Icon(Icons.search),
-                      suffixIcon: _searchController.text.isNotEmpty
-                          ? IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () {
-                          _searchController.clear();
-                          setState(() {
-                            _searchResults = [];
-                          });
-                        },
-                      )
-                          : null,
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromRGBO(0, 0, 0, 0.2),
+                          blurRadius: 6,
+                        ),
+                      ],
                     ),
-                    onChanged: (value) {
-                      _searchPlaces(value);
-                    },
+                    child: const Icon(
+                      Icons.arrow_back_ios_new,
+                      color: Colors.black,
+                      size: 24,
+                    ),
                   ),
                 ),
-                if (_searchResults.isNotEmpty)
-                  Container(
-                    margin: const EdgeInsets.only(top: 8),
+                const SizedBox(width: 8), // Space between back button and search bar
+                Expanded(
+                  child: Container(
+                    height: 50,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Color.fromRGBO(0, 0, 0, 0.1),
                           blurRadius: 8,
                         ),
                       ],
                     ),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: _searchResults.length,
-                      itemBuilder: (context, index) {
-                        final result = _searchResults[index];
-                        return ListTile(
-                          title: Text(
-                            result['display_name'],
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          onTap: () => _selectSearchResult(result),
-                        );
-                      },
-                    ),
-                  ),
-                if (_isSearching)
-                  Container(
-                    margin: const EdgeInsets.only(top: 8),
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2),
+                    child: TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        hintText: 'Search destination...',
+                        hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.grey,
+                          fontSize: 14// Add a subtle color for the hint text
                         ),
-                        SizedBox(width: 16),
-                        Text('Searching...'),
-                      ],
+                        prefixIcon: const Icon(Icons.search, size: 20),
+                        suffixIcon: _searchController.text.isNotEmpty
+                            ? IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () {
+                            _searchController.clear();
+                            setState(() {
+                              _searchResults = [];
+                            });
+                          },
+                        )
+                            : null,
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 14,
+                          horizontal: 16,
+                        ),
+                      ),
+                      onChanged: (value) {
+                        _searchPlaces(value);
+                      },
+                      style: const TextStyle(fontSize: 16),
                     ),
                   ),
+                ),
               ],
             ),
           ),

@@ -1,19 +1,20 @@
-import 'package:driver_part/pages/transaction_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../Themes/app_color.dart';
+import '../../../providers/profile_provider.dart';
+import '../../../widgets/custom_widgets/profile_details_widget.dart';
+
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final profileDetails = context.watch<ProfileProvider>().profileDetails;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF005400),
-        title: const Text('Profile', style: TextStyle(color: Colors.white)),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
+        title: const Text("Profile"),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -31,7 +32,7 @@ class ProfilePage extends StatelessWidget {
                 children: [
                   const CircleAvatar(
                     radius: 50,
-                    backgroundImage: AssetImage('assets/avatar1.png'),
+                    backgroundImage: AssetImage('assets/icons/avatar1.png'),
                   ),
                   const SizedBox(height: 10),
                   const Text(
@@ -50,7 +51,11 @@ class ProfilePage extends StatelessWidget {
                     },
                     child: const Text(
                       'Edit Profile',
-                      style: TextStyle(fontSize: 14, color: Color(0xFF005400), decoration: TextDecoration.underline),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.primary,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ],
@@ -58,39 +63,8 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 30),
-          _buildProfileOption(Icons.dashboard, 'Dashboard', () {
-            // Dashboard functionality
-          }),
-          _buildProfileOption(Icons.lock, 'Transaction', () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>TransactionPage()));
-            // Transaction functionality
-          }),
-          _buildProfileOption(Icons.settings, 'Settings', () {
-            // Settings functionality
-          }),
-          _buildProfileOption(Icons.logout, 'Log-out', () {
-            // Log-out functionality
-          }),
+          ...profileDetails.map((details) => ProfileDetailsWidget(details: details)).toList(),
         ],
-      ),
-    );
-  }
-
-  Widget _buildProfileOption(IconData icon, String title, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-        child: Row(
-          children: [
-            Icon(icon, color: const Color(0xFF005400)),
-            const SizedBox(width: 16),
-            Text(
-              title,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
       ),
     );
   }
