@@ -5,31 +5,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool showWarningIcon;
   final VoidCallback onSetupTap;
-  final bool showBackButton;
 
   const CustomAppBar({
     Key? key,
     required this.title,
     this.showWarningIcon = false,
     required this.onSetupTap,
-    this.showBackButton = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColors.background,
-      leading: showBackButton
-          ? IconButton(
-        icon: const Icon(
-          Icons.arrow_back_ios_new,
-          color: Colors.black,
-        ),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      )
-          : null,
+      leading: null,
       title: Row(
         children: [
           const Icon(

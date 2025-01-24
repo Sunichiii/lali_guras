@@ -1,3 +1,4 @@
+import 'package:driver_part/widgets/buttons/secondary_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../Themes/app_color.dart';
@@ -13,9 +14,7 @@ class ProfilePage extends StatelessWidget {
     final profileDetails = context.watch<ProfileProvider>().profileDetails;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Profile"),
-      ),
+      appBar: SecondaryAppBar(title: "Profile"),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

@@ -1,3 +1,4 @@
+import 'package:driver_part/widgets/buttons/secondary_app_bar.dart';
 import 'package:driver_part/widgets/custom_widgets/profile_setup_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,9 +13,7 @@ class SetupProfilePage extends StatelessWidget {
     final provider = Provider.of<ProfileSetupProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Setup Profile"),
-      ),
+      appBar: SecondaryAppBar(title: "Setup your profile"),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
