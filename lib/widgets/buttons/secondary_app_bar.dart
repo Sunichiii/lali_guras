@@ -16,7 +16,11 @@ class SecondaryAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       elevation: 0, // Removes shadow
       leading: IconButton(
-        onPressed: onBackButtonPressed ?? () => Navigator.pop(context),
+        onPressed: onBackButtonPressed ??
+                () {
+              // Default behavior: Navigate to home page
+              Navigator.pushReplacementNamed(context, '/home');
+            },
         icon: const Icon(
           Icons.arrow_back_ios_new, // iOS-style back arrow
           color: Colors.black,

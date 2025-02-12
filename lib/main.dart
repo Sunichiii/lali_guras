@@ -1,5 +1,7 @@
 import 'package:driver_part/Themes/light_theme.dart';
+import 'package:driver_part/pages/Primary%20Screens/functional/driver_home_page.dart';
 import 'package:driver_part/pages/Primary%20Screens/splash/splash_screen.dart';
+import 'package:driver_part/providers/customer_provider.dart';
 import 'package:driver_part/providers/login_provider.dart';
 import 'package:driver_part/providers/pick_provider.dart';
 import 'package:driver_part/providers/profile_provider.dart';
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PickProvider()),
         ChangeNotifierProvider(create: (_) => ProfileSetupProvider()),
         ChangeNotifierProvider(create: (_) => ProfileProvider()),
+        ChangeNotifierProvider(create: (_) => CustomerProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
